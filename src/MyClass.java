@@ -5,5 +5,6 @@ public class MyClass {
 
     System.out.println("hello from eleni");
 
+    System.out.println("hello cruel world");
   }
 }
