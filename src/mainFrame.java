@@ -1,13 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.*;
-import java.util.Calendar;
 
 public class mainFrame extends JFrame {
      private JTextArea  textArea;
@@ -142,8 +137,8 @@ public class mainFrame extends JFrame {
 
            sttt.executeUpdate(sql);
            sttt.executeUpdate(sql2);
-            sttt.executeUpdate(sql3);
-            sttt.executeUpdate(sql4);
+           sttt.executeUpdate(sql3);
+           sttt.executeUpdate(sql4);
 
             sql=  "INSERT INTO VEHICLESINSURANCECHECK.fines( ownerId, Amount  , FineDate  ," +
                     " plate ) VALUES (1,200.2,'2018-11-26','ASD-1234' )";
@@ -159,7 +154,7 @@ public class mainFrame extends JFrame {
 
     private void createDB() {
         try{
-            con = DriverManager.getConnection ("jdbc:mysql://localhost/?user=root&password=κοστασμαριεττα25$");
+            con = DriverManager.getConnection ("jdbc:mysql://localhost/?user=root&password=root");
             Statement s=  con.createStatement();
             int Result=s.executeUpdate("CREATE DATABASE VEHICLESINSURANCECHECK");
            //creation of table owners
@@ -191,7 +186,7 @@ public class mainFrame extends JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK","root","κοστασμαριεττα25$");
+                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK","root","root");
              //here VEHICLESINSURANCECHECK is database name, root is username and password
             textArea.setText("Connected to DB");
         }catch(Exception e){
@@ -201,4 +196,3 @@ public class mainFrame extends JFrame {
         }
     }
 }
-

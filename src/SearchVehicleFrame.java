@@ -1,18 +1,10 @@
-import jdk.swing.interop.SwingInterOpUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
     public class SearchVehicleFrame extends JFrame {
@@ -136,9 +128,3 @@ import java.util.regex.Pattern;
         }
 
     }
-
-
-
-
-
-
