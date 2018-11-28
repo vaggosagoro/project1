@@ -112,7 +112,6 @@ public class mainFrame extends JFrame {
 
             String sql4 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
                     + "VALUES('Giannis','Kurillos','Andrea_133_Kifissia','2109922140','6983427900' )";
-           // PreparedStatement stmt=con.prepareStatement("Insert Vehicle bla bla");
             Statement sttt = con.createStatement();
             sttt.executeUpdate(sql);
             sttt.executeUpdate(sql2);
@@ -154,23 +153,23 @@ public class mainFrame extends JFrame {
 
     private void createDB() {
         try{
-            con = DriverManager.getConnection ("jdbc:mysql://localhost/?user=root&password=root");
+            con = DriverManager.getConnection ("jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK?autoReconnect=true&useSSL=false", "root", "root");
             Statement s=  con.createStatement();
-            int Result=s.executeUpdate("CREATE DATABASE VEHICLESINSURANCECHECK");
+            int Result=s.executeUpdate("CREATE DATABASE if not exists VEHICLESINSURANCECHECK");
            //creation of table owners
             checkDBConnection();
-            PreparedStatement stmt2=con.prepareStatement("Create table owners(Name varchar(20) not null,LastName varchar(30) not null," +
+            PreparedStatement stmt2=con.prepareStatement("Create table if not exists owners(Name varchar(20) not null,LastName varchar(30) not null," +
                     "ownerId integer not null auto_increment,Address Varchar(60) not null,Telephone Varchar(30) not null,Mobile Varchar(30) not null, Primary Key(ownerId) );");
             //creation of table cars
             stmt2.execute();
-            PreparedStatement stmt3=con.prepareStatement("Create table cars(year integer not null,Manufacturer varchar(30) not null," +
+            PreparedStatement stmt3=con.prepareStatement("Create table if not exists cars(year integer not null,Manufacturer varchar(30) not null," +
                     "Model Varchar(30) not null,RegistrationDate DATE  ,ExpirationDate DATE  ,InsuranceCompany Varchar(30) ," +
                     " Color varchar(20)not null," +
                     "Plate varchar(10)not null,ownerId integer not null, Primary Key(plate)," +
                     "foreign Key(ownerId) references owners(ownerId));");
             //creation of table fines
             stmt3.execute();
-            PreparedStatement stmt4=con.prepareStatement("Create table fines(FineId integer not null auto_increment,ownerId integer not null," +
+            PreparedStatement stmt4=con.prepareStatement("Create table if not exists fines(FineId integer not null auto_increment,ownerId integer not null," +
                     "Amount float not null, FineDate DATE  not null, plate varchar(10) not null, Primary Key (FineId), foreign Key(ownerId) references owners(ownerId)," +
                     "foreign Key (plate) references cars(plate));");
             stmt4.execute();
@@ -186,11 +185,10 @@ public class mainFrame extends JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK","root","root");
+                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK?autoReconnect=true&useSSL=false","root","root");
              //here VEHICLESINSURANCECHECK is database name, root is username and password
             textArea.setText("Connected to DB");
         }catch(Exception e){
-//            System.out.println(e.getLocalizedMessage());
             textArea.setText("Can't connect to DB. " +
                     "\n"+"Wrong credentials or must create new DB");
         }
