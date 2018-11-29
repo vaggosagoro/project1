@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.*;
+import java.sql.Date;
+import java.util.*;
 
 public class mainFrame extends JFrame {
      private JTextArea  textArea;
@@ -62,6 +64,10 @@ public class mainFrame extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 textArea.setText(null);
+                TreeMap <String,car> uninsuredCars=new TreeMap<>();
+                uninsuredCars=expiriesByPlate();
+                textArea.append(uninsuredCars.entrySet().toString());
+
             }
         });
 
@@ -97,22 +103,61 @@ public class mainFrame extends JFrame {
         setVisible(true);
     }
 
+    private TreeMap<String,car> expiriesByPlate() {
+        TreeMap<String,car> uninsuredCars = new TreeMap<>();
+
+        Calendar currenttime = Calendar.getInstance();
+        Date sqldate = new Date((currenttime.getTime()).getTime());
+        String sql= "SELECT * FROM VEHICLESINSURANCECHECK.cars  WHERE ExpirationDate <'"+sqldate+"' or ExpirationDate IS NULL" ;
+        Date expD8 =null,   regD8=null;
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+             if(!rs.next()){
+                final JPanel panel = new JPanel();
+                JOptionPane.showMessageDialog(panel, "No uninsured vehicles in DB" , "Insurance status",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                do {
+                    int year=rs.getInt(1);
+                    int ownerID=rs.getInt(9);
+                    String color=rs.getString(7);
+                    String manufacturer=rs.getString(2);
+                    String Model=rs.getString(3);
+                    String platte=  rs.getString(8);
+                    String insco = rs.getString(6);
+                    expD8 = rs.getDate(5);
+                    regD8 = rs.getDate(4);
+                    car carTemp=new car(year,manufacturer,Model,regD8,expD8,insco,color,platte,ownerID) ;
+                    uninsuredCars.put(carTemp.getPlate(),carTemp);
+
+                 }while(rs.next());
+
+
+            }
+        }  catch(Exception e){
+             final JPanel panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, e.getMessage() , "error!!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } return uninsuredCars;
+    }
+
     private void insertVehicle() {
         try{
-//            insVeFrame iv=new insVeFrame(con);
-//INSERT OWNER
-            String sql = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
-                    + "VALUES ('Xenofon','Kotsaris','Andrea_Papandreou_155_Ilion','2102622140','6980327900', '12345678' )";
+            //INSERT OWNER
+            String sql = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
+                    + "VALUES ('Xenofon','Kotsaris','Andrea_Papandreou_155_Ilion','2102622140','6980327900' )";
 
-            String sql2 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
-                    + "VALUES('Vaggelis','Agorogiannis','Andrea_Kalvou_155_Zografou','2102622142','6980327903','91375846' )";
+            String sql2 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
+                    + "VALUES('Vaggelis','Agorogiannis','Andrea_Kalvou_155_Zografou','2102622142','6980327903' )";
 
-            String sql3 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
-                    + "VALUES('Eleni','Dimopoulou','Papandreou_143_Ilion','2102522140','6980443330','74103265' )";
+            String sql3 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
+                    + "VALUES('Eleni','Dimopoulou','Papandreou_143_Ilion','2102522140','6980443330' )";
 
-            String sql4 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
-                    + "VALUES('Giannis','Kurillos','Andrea_133_Kifissia','2109922140','6983427900','96587412' )";
-            Statement sttt = con.createStatement();
+            String sql4 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
+                    + "VALUES('Giannis','Kurillos','Andrea_133_Kifissia','2109922140','6983427900' )";
+             Statement sttt = con.createStatement();
             sttt.executeUpdate(sql);
             sttt.executeUpdate(sql2);
             sttt.executeUpdate(sql3);
@@ -120,7 +165,7 @@ public class mainFrame extends JFrame {
 
                sql = "INSERT INTO VEHICLESINSURANCECHECK.cars (year,Manufacturer,Model ,RegistrationDate,ExpirationDate,InsuranceCompany,Color," +
                     " Plate,ownerId) "
-                    + "VALUES(1998,'Lancia','Ypsilon','2017-08-09','2018-01-31','Interamerican','blue','ASD-1234',1 )";
+                    + "VALUES(1998,'Lancia','Ypsilon',null,null,null,'blue','ASD-1234',1 )";
 
               sql2 = "INSERT INTO VEHICLESINSURANCECHECK.cars (year,Manufacturer,Model ,RegistrationDate,ExpirationDate,InsuranceCompany,Color," +
                     " Plate,ownerId) "
@@ -136,14 +181,12 @@ public class mainFrame extends JFrame {
 
            sttt.executeUpdate(sql);
            sttt.executeUpdate(sql2);
-           sttt.executeUpdate(sql3);
-           sttt.executeUpdate(sql4);
+            sttt.executeUpdate(sql3);
+            sttt.executeUpdate(sql4);
 
             sql=  "INSERT INTO VEHICLESINSURANCECHECK.fines( ownerId, Amount  , FineDate  ," +
                     " plate ) VALUES (1,200.2,'2018-11-26','ASD-1234' )";
             sttt.executeUpdate(sql);
-
-         //   con.commit();
 
         textArea.setText("Inserted Sample Data");
         }catch(Exception e){
@@ -153,30 +196,29 @@ public class mainFrame extends JFrame {
 
     private void createDB() {
         try{
-           con = DriverManager.getConnection ("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "root");
+            con = DriverManager.getConnection ("jdbc:mysql://localhost/?user=root&password=κοστασμαριεττα25$");
             Statement s=  con.createStatement();
-            int Result=s.executeUpdate("CREATE DATABASE if not exists VEHICLESINSURANCECHECK");
+            int Result=s.executeUpdate("CREATE DATABASE VEHICLESINSURANCECHECK");
            //creation of table owners
             checkDBConnection();
-            PreparedStatement stmt2=con.prepareStatement("Create table if not exists owners(Name varchar(20) not null,LastName varchar(30) not null," +
-                    "ownerId integer not null auto_increment,Address Varchar(60) not null,Telephone Varchar(30) not null,Mobile Varchar(30) not null, AFM Varchar(30) Unique not null, Primary Key(ownerId) );");
+            PreparedStatement stmt2=con.prepareStatement("Create table owners(Name varchar(20) not null,LastName varchar(30) not null," +
+                    "ownerId integer not null auto_increment,Address Varchar(60) not null,Telephone Varchar(30) not null,Mobile Varchar(30) not null, Primary Key(ownerId) );");
             //creation of table cars
             stmt2.execute();
-            PreparedStatement stmt3=con.prepareStatement("Create table if not exists cars(year integer not null,Manufacturer varchar(30) not null," +
+            PreparedStatement stmt3=con.prepareStatement("Create table cars(year integer not null,Manufacturer varchar(30) not null," +
                     "Model Varchar(30) not null,RegistrationDate DATE  ,ExpirationDate DATE  ,InsuranceCompany Varchar(30) ," +
                     " Color varchar(20)not null," +
                     "Plate varchar(10)not null,ownerId integer not null, Primary Key(plate)," +
                     "foreign Key(ownerId) references owners(ownerId));");
             //creation of table fines
             stmt3.execute();
-            PreparedStatement stmt4=con.prepareStatement("Create table if not exists fines(FineId integer not null auto_increment,ownerId integer not null," +
+            PreparedStatement stmt4=con.prepareStatement("Create table fines(FineId integer not null auto_increment,ownerId integer not null," +
                     "Amount float not null, FineDate DATE  not null, plate varchar(10) not null, Primary Key (FineId), foreign Key(ownerId) references owners(ownerId)," +
                     "foreign Key (plate) references cars(plate));");
             stmt4.execute();
             textArea.setText("Db created");
         }catch(Exception e){
-            System.out.println(e.getMessage());
-             textArea.setText(e.getLocalizedMessage());
+            textArea.setText(e.getLocalizedMessage());
 //                     "Db already exists");
         }
     }
@@ -185,12 +227,14 @@ public class mainFrame extends JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection(
-                   "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK?autoReconnect=true&useSSL=false","root","root");
+                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK","root","κοστασμαριεττα25$");
              //here VEHICLESINSURANCECHECK is database name, root is username and password
             textArea.setText("Connected to DB");
         }catch(Exception e){
+//            System.out.println(e.getLocalizedMessage());
             textArea.setText("Can't connect to DB. " +
                     "\n"+"Wrong credentials or must create new DB");
         }
     }
 }
+
