@@ -1,3 +1,4 @@
+ 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,26 +6,32 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.Calendar;
+ 
 
 public class timeFrameWindow extends JFrame {
 
 
     private Connection con;
+    private JTextArea ta;
 
     public timeFrameWindow(Connection conn) {
         super("Search Vehicles that are about to expire");
 
         this.con=conn;
-        setSize(300, 300);
+        setSize(650, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        setLayout(new GridLayout(9, 1));
+        setLayout(new GridLayout(4, 1));
         JTextField plate;
         plate=new JTextField("Give number of Days");
         plate.setBounds(50,100, 200,30);
         add(plate);
 
+        this.ta=  new JTextArea(200, 50);
+        this.ta.setSize(650,400);
+        JScrollPane scrollPane = new JScrollPane(ta);
+        getContentPane().add(scrollPane);
 
         JButton OK= new JButton("Search");
         JButton Close= new JButton("Cancel");
@@ -76,6 +83,7 @@ public class timeFrameWindow extends JFrame {
         try {
             ResultSet rs = stmt.executeQuery(sql);
             //for every insured vehicle
+            String vehicles="";
              while(rs.next()) {
 
 
@@ -92,12 +100,10 @@ public class timeFrameWindow extends JFrame {
                  long numOfDays = (long) diff/(1000*60*60*24);
 
                  if (numOfDays<=days) {
-                     final JPanel panel = new JPanel();
-                     JOptionPane.showMessageDialog(panel, "Plate: " + plate + " ,Insurance Company:" + insco + " ,Registration Date:" + regD8.toString() + " ,Expiration Date:" + expD8.toString(), "Insurance status",
-                             JOptionPane.INFORMATION_MESSAGE);
+                     vehicles+= "Plate: " + plate + " ,Insurance Company:" + insco + " ,Registration Date:" + regD8.toString() + " ,Expiration Date:" + expD8.toString()+"\n";
                  }
-
             }
+            this.ta.append(vehicles);
 
             }  catch(Exception e){
             System.out.println(e.getMessage());
@@ -131,3 +137,10 @@ public class timeFrameWindow extends JFrame {
     }
 
 }
+
+
+
+
+
+
+
