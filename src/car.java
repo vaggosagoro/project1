@@ -1,7 +1,7 @@
 import java.util.Date;
 
-public class car {
-    private int year;
+public class car implements Comparable <car> {
+    private int year, ownerId;
     private String manufacturer;
     private String model;
     private Date RegistrationDate;
@@ -10,7 +10,8 @@ public class car {
     private String Color;
     private String Plate;
 
-    public car(int year, String manufacturer, String model, Date registrationDate, Date expirationDate, String insuranceCompany, String color, String plate) {
+
+    public car(int year, String manufacturer, String model, Date registrationDate, Date expirationDate, String insuranceCompany, String color, String plate, int ownerId) {
         this.year = year;
         this.manufacturer = manufacturer;
         this.model = model;
@@ -19,6 +20,35 @@ public class car {
         InsuranceCompany = insuranceCompany;
         Color = color;
         Plate = plate;
+        this.ownerId = ownerId;
+    }
+
+    @Override
+    public String toString() {
+        return "car{" +
+                "year=" + year +
+                ", ownerId=" + ownerId +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", RegistrationDate=" + RegistrationDate +
+                ", ExpirationDate=" + ExpirationDate +
+                ", InsuranceCompany='" + InsuranceCompany + '\'' +
+                ", Color='" + Color + '\'' +
+                ", Plate='" + Plate + '\'' +
+                '}'+"\n";
+    }
+
+    @Override
+    public int compareTo(car o) {
+        return (this.getPlate()).compareTo(o.getPlate());
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public int getYear() {
