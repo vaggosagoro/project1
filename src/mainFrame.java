@@ -153,7 +153,7 @@ public class mainFrame extends JFrame {
 
     private void createDB() {
         try{
-            con = DriverManager.getConnection ("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "root");
+           con = DriverManager.getConnection ("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "root");
             Statement s=  con.createStatement();
             int Result=s.executeUpdate("CREATE DATABASE if not exists VEHICLESINSURANCECHECK");
            //creation of table owners
@@ -185,7 +185,7 @@ public class mainFrame extends JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK?autoReconnect=true&useSSL=false","root","root");
+                   "jdbc:mysql://localhost:3306/VEHICLESINSURANCECHECK?autoReconnect=true&useSSL=false","root","root");
              //here VEHICLESINSURANCECHECK is database name, root is username and password
             textArea.setText("Connected to DB");
         }catch(Exception e){
