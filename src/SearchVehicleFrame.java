@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.Calendar;
+ 
 
 
     public class SearchVehicleFrame extends JFrame {
@@ -16,11 +17,11 @@ import java.util.Calendar;
             super("Search Vehicle");
 
             this.con=conn;
-            setSize(300, 300);
+            setSize(250, 150);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            setLayout(new GridLayout(9, 1));
+            setLayout(new GridLayout(3, 1));
             JTextField plate,Manufacturer,model,regD8,expD8,InsCo,Color,year;
             plate=new JTextField("Plate number");
             plate.setBounds(50,100, 200,30);
@@ -128,3 +129,9 @@ import java.util.Calendar;
         }
 
     }
+
+
+
+
+
+
