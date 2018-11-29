@@ -101,17 +101,17 @@ public class mainFrame extends JFrame {
         try{
 //            insVeFrame iv=new insVeFrame(con);
 //INSERT OWNER
-            String sql = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
-                    + "VALUES ('Xenofon','Kotsaris','Andrea_Papandreou_155_Ilion','2102622140','6980327900' )";
+            String sql = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
+                    + "VALUES ('Xenofon','Kotsaris','Andrea_Papandreou_155_Ilion','2102622140','6980327900', '12345678' )";
 
-            String sql2 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
-                    + "VALUES('Vaggelis','Agorogiannis','Andrea_Kalvou_155_Zografou','2102622142','6980327903' )";
+            String sql2 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
+                    + "VALUES('Vaggelis','Agorogiannis','Andrea_Kalvou_155_Zografou','2102622142','6980327903','91375846' )";
 
-            String sql3 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
-                    + "VALUES('Eleni','Dimopoulou','Papandreou_143_Ilion','2102522140','6980443330' )";
+            String sql3 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
+                    + "VALUES('Eleni','Dimopoulou','Papandreou_143_Ilion','2102522140','6980443330','74103265' )";
 
-            String sql4 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile) "
-                    + "VALUES('Giannis','Kurillos','Andrea_133_Kifissia','2109922140','6983427900' )";
+            String sql4 = "INSERT INTO VEHICLESINSURANCECHECK.owners (Name,LastName,Address ,Telephone,Mobile,AFM) "
+                    + "VALUES('Giannis','Kurillos','Andrea_133_Kifissia','2109922140','6983427900','96587412' )";
             Statement sttt = con.createStatement();
             sttt.executeUpdate(sql);
             sttt.executeUpdate(sql2);
@@ -120,7 +120,7 @@ public class mainFrame extends JFrame {
 
                sql = "INSERT INTO VEHICLESINSURANCECHECK.cars (year,Manufacturer,Model ,RegistrationDate,ExpirationDate,InsuranceCompany,Color," +
                     " Plate,ownerId) "
-                    + "VALUES(1998,'Lancia','Ypsilon',null,null,null,'blue','ASD-1234',1 )";
+                    + "VALUES(1998,'Lancia','Ypsilon','2017-08-09','2018-01-31','Interamerican','blue','ASD-1234',1 )";
 
               sql2 = "INSERT INTO VEHICLESINSURANCECHECK.cars (year,Manufacturer,Model ,RegistrationDate,ExpirationDate,InsuranceCompany,Color," +
                     " Plate,ownerId) "
@@ -159,7 +159,7 @@ public class mainFrame extends JFrame {
            //creation of table owners
             checkDBConnection();
             PreparedStatement stmt2=con.prepareStatement("Create table if not exists owners(Name varchar(20) not null,LastName varchar(30) not null," +
-                    "ownerId integer not null auto_increment,Address Varchar(60) not null,Telephone Varchar(30) not null,Mobile Varchar(30) not null, Primary Key(ownerId) );");
+                    "ownerId integer not null auto_increment,Address Varchar(60) not null,Telephone Varchar(30) not null,Mobile Varchar(30) not null, AFM Varchar(30) Unique not null, Primary Key(ownerId) );");
             //creation of table cars
             stmt2.execute();
             PreparedStatement stmt3=con.prepareStatement("Create table if not exists cars(year integer not null,Manufacturer varchar(30) not null," +
