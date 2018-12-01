@@ -1,3 +1,5 @@
+import domain.Car;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,7 +66,7 @@ public class mainFrame extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 textArea.setText(null);
-                TreeMap <String,car> uninsuredCars=new TreeMap<>();
+                TreeMap <String, Car> uninsuredCars=new TreeMap<>();
                 uninsuredCars=expiriesByPlate();
                 textArea.append(uninsuredCars.entrySet().toString());
 
@@ -104,8 +106,8 @@ public class mainFrame extends JFrame {
         setVisible(true);
     }
 
-    private TreeMap<String,car> expiriesByPlate() {
-        TreeMap<String,car> uninsuredCars = new TreeMap<>();
+    private TreeMap<String, Car> expiriesByPlate() {
+        TreeMap<String, Car> uninsuredCars = new TreeMap<>();
 
         Calendar currenttime = Calendar.getInstance();
         Date sqldate = new Date((currenttime.getTime()).getTime());
@@ -130,7 +132,7 @@ public class mainFrame extends JFrame {
                     String insco = rs.getString(6);
                     expD8 = rs.getDate(5);
                     regD8 = rs.getDate(4);
-                    car carTemp=new car(year,manufacturer,Model,regD8,expD8,insco,color,platte,ownerID) ;
+                    Car carTemp=new Car(year,manufacturer,Model,regD8,expD8,insco,color,platte,ownerID) ;
                     uninsuredCars.put(carTemp.getPlate(),carTemp);
 
                  }while(rs.next());

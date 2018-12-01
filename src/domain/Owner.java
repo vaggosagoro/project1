@@ -1,4 +1,4 @@
-public class owner {
+public class Owner {
     private String name;
     private String surname;
     private String afm;
@@ -6,7 +6,7 @@ public class owner {
     private String telephone;
     private String mobile;
 
-    public owner(String name, String surname, String afm, String address, String telephone, String mobile) {
+    public Owner(String name, String surname, String afm, String address, String telephone, String mobile) {
         this.name = name;
         this.surname = surname;
         this.afm = afm;

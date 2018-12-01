@@ -124,7 +124,7 @@ public class FineCalculationFrame extends JFrame {
 
             if(!rs.next()){
                 final JPanel panel = new JPanel();
-                JOptionPane.showMessageDialog(panel, "No such owner in DB" , "Owner",
+                JOptionPane.showMessageDialog(panel, "No such Owner in DB" , "Owner",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
                 String fname = rs.getString(1);
@@ -176,7 +176,7 @@ public class FineCalculationFrame extends JFrame {
 
             if(!rs.next()){
                 final JPanel panel = new JPanel();
-                JOptionPane.showMessageDialog(panel, "No such owner in DB" , "Total Fine",
+                JOptionPane.showMessageDialog(panel, "No such Owner in DB" , "Total Fine",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
 

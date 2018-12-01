@@ -1,27 +1,26 @@
 import java.util.Date;
 
-public class fine {
-    private int FineId;
+public class Fine {
+    private int fineId;
     private String afm;
-    private Date FineDate;
+    private Date fineDate;
     private double ammount;
     private String plate;
 
-
-    public fine(int fineId, String afm, Date fineDate, double ammount, String plate) {
-        FineId = fineId;
+    public Fine(int fineId, String afm, Date fineDate, double ammount, String plate) {
+        this.fineId = fineId;
         this.afm = afm;
-        FineDate = fineDate;
+        this.fineDate = fineDate;
         this.ammount = ammount;
         this.plate = plate;
     }
 
     public int getFineId() {
-        return FineId;
+        return fineId;
     }
 
     public void setFineId(int fineId) {
-        FineId = fineId;
+        this.fineId = fineId;
     }
 
     public String getAfm() {
@@ -33,11 +32,11 @@ public class fine {
     }
 
     public Date getFineDate() {
-        return FineDate;
+        return fineDate;
     }
 
     public void setFineDate(Date fineDate) {
-        FineDate = fineDate;
+        this.fineDate = fineDate;
     }
 
     public double getAmmount() {
@@ -55,5 +54,4 @@ public class fine {
     public void setPlate(String plate) {
         this.plate = plate;
     }
-
 }
