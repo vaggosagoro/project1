@@ -1,3 +1,7 @@
+package frames;
+
+import databaseHelper.MySQLConnectionFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,10 +13,14 @@ public class FineCalculationFrame extends JFrame {
 
     private Connection con;
 
-    public FineCalculationFrame(Connection conn) {
+    public FineCalculationFrame() {
         super("Total Fine Cost");
 
-        this.con = conn;
+        try {
+            this.con = MySQLConnectionFactory.getConnection();
+        } catch (SQLException e) {
+            // show error
+        }
         setSize(300, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

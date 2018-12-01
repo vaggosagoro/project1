@@ -1,45 +1,52 @@
+package domain;
+
+import java.time.LocalDate;
 import java.util.Date;
 
-public class car implements Comparable <car> {
+public class Car implements Comparable <Car> {
     private int year, ownerId;
     private String manufacturer;
     private String model;
-    private Date RegistrationDate;
-    private Date ExpirationDate;
-    private String InsuranceCompany;
-    private String Color;
-    private String Plate;
+    private LocalDate registrationDate;
+    private LocalDate expirationDate;
+    private String insuranceCompany;
+    private String color;
+    private String plate;
+
+    public Car() {
+
+    }
 
 
-    public car(int year, String manufacturer, String model, Date registrationDate, Date expirationDate, String insuranceCompany, String color, String plate, int ownerId) {
+    public Car(int year, String manufacturer, String model, LocalDate registrationDate, LocalDate expirationDate, String insuranceCompany, String color, String plate, int ownerId) {
         this.year = year;
         this.manufacturer = manufacturer;
         this.model = model;
-        RegistrationDate = registrationDate;
-        ExpirationDate = expirationDate;
-        InsuranceCompany = insuranceCompany;
-        Color = color;
-        Plate = plate;
+        this.registrationDate = registrationDate;
+        this.expirationDate = expirationDate;
+        this.insuranceCompany = insuranceCompany;
+        this.color = color;
+        this.plate = plate;
         this.ownerId = ownerId;
     }
 
     @Override
     public String toString() {
-        return "car{" +
+        return "Car{" +
                 "year=" + year +
                 ", ownerId=" + ownerId +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +
-                ", RegistrationDate=" + RegistrationDate +
-                ", ExpirationDate=" + ExpirationDate +
-                ", InsuranceCompany='" + InsuranceCompany + '\'' +
-                ", Color='" + Color + '\'' +
-                ", Plate='" + Plate + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", expirationDate=" + expirationDate +
+                ", insuranceCompany='" + insuranceCompany + '\'' +
+                ", color='" + color + '\'' +
+                ", plate='" + plate + '\'' +
                 '}'+"\n";
     }
 
     @Override
-    public int compareTo(car o) {
+    public int compareTo(Car o) {
         return (this.getPlate()).compareTo(o.getPlate());
     }
 
@@ -75,44 +82,44 @@ public class car implements Comparable <car> {
         this.model = model;
     }
 
-    public Date getRegistrationDate() {
-        return RegistrationDate;
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        RegistrationDate = registrationDate;
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public Date getExpirationDate() {
-        return ExpirationDate;
+    public LocalDate getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        ExpirationDate = expirationDate;
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public String getInsuranceCompany() {
-        return InsuranceCompany;
+        return insuranceCompany;
     }
 
     public void setInsuranceCompany(String insuranceCompany) {
-        InsuranceCompany = insuranceCompany;
+        this.insuranceCompany = insuranceCompany;
     }
 
     public String getColor() {
-        return Color;
+        return color;
     }
 
     public void setColor(String color) {
-        Color = color;
+        this.color = color;
     }
 
     public String getPlate() {
-        return Plate;
+        return plate;
     }
 
     public void setPlate(String plate) {
-        Plate = plate;
+        this.plate = plate;
     }
 
 }

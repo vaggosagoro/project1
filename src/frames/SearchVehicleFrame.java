@@ -1,3 +1,7 @@
+package frames;
+
+import databaseHelper.MySQLConnectionFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,10 +17,14 @@ import java.util.Calendar;
 
         private Connection con;
 
-        public SearchVehicleFrame(Connection conn) {
+        public SearchVehicleFrame() {
             super("Search Vehicle");
 
-            this.con=conn;
+            try {
+                this.con= MySQLConnectionFactory.getConnection();
+            } catch (SQLException e) {
+                //show error message
+            }
             setSize(250, 150);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

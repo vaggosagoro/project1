@@ -1,4 +1,7 @@
- 
+package frames;
+
+import databaseHelper.MySQLConnectionFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,10 +17,14 @@ public class timeFrameWindow extends JFrame {
     private Connection con;
     private JTextArea ta;
 
-    public timeFrameWindow(Connection conn) {
+    public timeFrameWindow() {
         super("Search Vehicles that are about to expire");
 
-        this.con=conn;
+        try {
+            this.con= MySQLConnectionFactory.getConnection();
+        } catch (SQLException e) {
+            // show error
+        }
         setSize(650, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
