@@ -9,7 +9,7 @@ public class DatabaseInitializer {
     public void initializeDataBase() throws SQLException {
         checkForJDBCDriver();
 
-        Connection con = MySQLConnectionFactory.getConnectionWithoutSchema();
+        Connection con = MySQLConnectionFactory.getConnection();
         Statement s=  con.createStatement();
         int result=s.executeUpdate("CREATE DATABASE if not exists VEHICLESINSURANCECHECK");
         //creation of table owners
